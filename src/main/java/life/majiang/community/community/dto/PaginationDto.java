@@ -11,8 +11,16 @@ public class PaginationDto {
     private boolean showNext;
     private boolean showEndPage;
     private Integer page;
-    private List<Integer>pages;
+    private List<Integer>pages=new ArrayList<>();
+    private Integer totalPage;
 
+    public Integer getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(Integer totalPage) {
+        this.totalPage = totalPage;
+    }
 
     public List<QuestionDto> getQuestions() {
         return questions;
@@ -71,14 +79,20 @@ public class PaginationDto {
     }
 
     public void setPagination(Integer totalCount, Integer page, Integer size) {
-        Integer totalPage;
+        //计算总页数
         if(totalCount % size==0){
             totalPage=totalCount/size;
         }
         else{
             totalPage=totalCount/size+1;
         }
-        List pages=new ArrayList();
+        if(page<1){
+            page=1;
+        }
+        if(page>totalPage){
+            page=totalPage;
+        }
+        this.page=page;
         pages.add(page);
         for(int i=1;i<=3;i++){
             //左右最多三个元素，因此只需要循环三次
@@ -86,9 +100,9 @@ public class PaginationDto {
                 //在前面加
                 pages.add(0,page-i);
             }
-            if(page+i<=totalCount){
+            if(page+i<=totalPage){
                 //向后加
-                pages.add(page+1);
+                pages.add(page+i);
             }
         }
 

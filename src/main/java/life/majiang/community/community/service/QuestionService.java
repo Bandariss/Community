@@ -21,10 +21,20 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public PaginationDto list(Integer page, Integer size) {
+        PaginationDto paginationDto=new PaginationDto();
+        Integer totalCount=questionMapper.count();
+        paginationDto.setPagination(totalCount,page,size);
+
+        if(page<1){
+            page=1;
+        }
+        if(page>paginationDto.getTotalPage()){
+            page=paginationDto.getTotalPage();
+        }
         Integer offset=size*(page-1);
         List<Question>questions=questionMapper.list(offset,size);
         List<QuestionDto>questionDtoList=new ArrayList<>();
-        PaginationDto paginationDto=new PaginationDto();
+
         for(Question question:questions){
             User user=userMapper.findById(question.getCreator());
             QuestionDto questionDto=new QuestionDto();
@@ -33,10 +43,33 @@ public class QuestionService {
             questionDtoList.add(questionDto);
         }
         paginationDto.setQuestions(questionDtoList);
-        Integer totalCount=questionMapper.count();
+        return paginationDto;
+    }
 
+    public PaginationDto list(Integer userId, Integer page, Integer size) {
+        PaginationDto paginationDto=new PaginationDto();
+        Integer totalCount=questionMapper.count();
         paginationDto.setPagination(totalCount,page,size);
-        System.out.println(totalCount);
+
+        if(page<1){
+            page=1;
+        }
+        if(page>paginationDto.getTotalPage()){
+            page=paginationDto.getTotalPage();
+        }
+        Integer offset=size*(page-1);
+        List<Question>questions=questionMapper.listByUserId(userId,offset,size);
+        List<QuestionDto>questionDtoList=new ArrayList<>();
+
+        for(Question question:questions){
+            User user=userMapper.findById(question.getCreator());
+            QuestionDto questionDto=new QuestionDto();
+            BeanUtils.copyProperties(question,questionDto);//快速将question中的属性拷贝到questionDto
+            questionDto.setUser(user);//此时question中包含了User对象
+            questionDtoList.add(questionDto);
+        }
+
+        paginationDto.setQuestions(questionDtoList);
         return paginationDto;
     }
 }
