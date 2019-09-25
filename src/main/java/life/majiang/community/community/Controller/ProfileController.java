@@ -27,7 +27,7 @@ public class ProfileController {
                           Model model,
                           HttpServletRequest request,
                           @RequestParam(name="page",defaultValue = "1") Integer page,
-                          @RequestParam(name="size",defaultValue = "2") Integer size){
+                          @RequestParam(name="size",defaultValue = "5") Integer size){
         User user=null;
         Cookie[] cookies=request.getCookies();
         if(cookies !=null&&cookies.length!=0){

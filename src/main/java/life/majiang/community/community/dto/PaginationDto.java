@@ -78,22 +78,11 @@ public class PaginationDto {
         this.pages = pages;
     }
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-        //计算总页数
-        if(totalCount % size==0){
-            totalPage=totalCount/size;
-        }
-        else{
-            totalPage=totalCount/size+1;
-        }
-        if(page<1){
-            page=1;
-        }
-        if(page>totalPage){
-            page=totalPage;
-        }
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage=totalPage;
         this.page=page;
         pages.add(page);
+
         for(int i=1;i<=3;i++){
             //左右最多三个元素，因此只需要循环三次
             if(page-i>0){
