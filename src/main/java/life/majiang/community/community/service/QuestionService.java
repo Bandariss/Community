@@ -49,6 +49,9 @@ public class QuestionService {
         paginationDto.setPagination(totalPage,page);
 
         Integer offset=size*(page-1);
+        if(offset<0){
+            offset=0;
+        }
         List<Question>questions=questionMapper.list(offset,size);
         List<QuestionDto>questionDtoList=new ArrayList<>();
 
@@ -98,5 +101,30 @@ public class QuestionService {
 
         paginationDto.setQuestions(questionDtoList);
         return paginationDto;
+    }
+
+    public QuestionDto getById(Integer id) {
+        //根据问题的id查找
+        Question question=questionMapper.getById(id);
+        QuestionDto questionDto=new QuestionDto();
+        BeanUtils.copyProperties(question,questionDto);
+        //将作者信息放入
+        User user=userMapper.findById(question.getCreator());
+        questionDto.setUser(user);
+        return questionDto;
+    }
+
+    public void createOrUpdate(Question question) {
+        if(question.getId()==null){
+            //创建
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }
+        else{
+            //更新
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.update(question);
+        }
     }
 }
