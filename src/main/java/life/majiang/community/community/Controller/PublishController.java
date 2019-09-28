@@ -1,10 +1,8 @@
 package life.majiang.community.community.Controller;
 
 import life.majiang.community.community.dto.QuestionDto;
-import life.majiang.community.community.mapper.QuestionMapper;
-import life.majiang.community.community.mapper.UserMapper;
-import life.majiang.community.community.module.Question;
-import life.majiang.community.community.module.User;
+import life.majiang.community.community.model.Question;
+import life.majiang.community.community.model.User;
 import life.majiang.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -71,7 +68,7 @@ public class PublishController {
         Question question=new Question();
         question.setTitle(title);
         question.setDescription(description);
-        question.setTags(tag);
+        question.setTag(tag);
         question.setCreator(user.getId());
         question.setId(id);
         questionService.createOrUpdate(question);

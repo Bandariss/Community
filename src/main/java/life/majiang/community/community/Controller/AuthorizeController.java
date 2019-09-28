@@ -3,7 +3,7 @@ package life.majiang.community.community.Controller;
 import life.majiang.community.community.dto.AccessTokenDto;
 import life.majiang.community.community.dto.GithubUser;
 import life.majiang.community.community.mapper.UserMapper;
-import life.majiang.community.community.module.User;
+import life.majiang.community.community.model.User;
 import life.majiang.community.community.provider.GithubProvider;
 import life.majiang.community.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

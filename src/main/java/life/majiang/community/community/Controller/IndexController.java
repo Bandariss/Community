@@ -1,17 +1,8 @@
 package life.majiang.community.community.Controller;
 
 import life.majiang.community.community.dto.PaginationDto;
-import life.majiang.community.community.dto.QuestionDto;
-import life.majiang.community.community.mapper.QuestionMapper;
-import life.majiang.community.community.mapper.UserMapper;
-import life.majiang.community.community.module.Question;
-import life.majiang.community.community.module.User;
 import life.majiang.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

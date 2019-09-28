@@ -1,7 +1,7 @@
 package life.majiang.community.community.Controller;
 
 import life.majiang.community.community.dto.PaginationDto;
-import life.majiang.community.community.module.User;
+import life.majiang.community.community.model.User;
 import life.majiang.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package life.majiang.community.community.dto;
 
-import life.majiang.community.community.module.User;
+import life.majiang.community.community.model.User;
 
 public class QuestionDto {
     private Integer id;
