@@ -9,6 +9,7 @@ import life.majiang.community.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,14 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
+
 public class AuthorizeController {
     //登陆授权成功后返回到index，需要接收参数，具体参数要求看github
 
     @Autowired
     private GithubProvider githubProvider;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
@@ -38,6 +38,7 @@ public class AuthorizeController {
 
     @Value("${github.redirect.uri}")
     private String redirectUri;
+    //上面是客户端设置的信息，与用户无关
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,

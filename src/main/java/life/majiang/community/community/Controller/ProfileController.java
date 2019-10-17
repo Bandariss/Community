@@ -1,7 +1,9 @@
 package life.majiang.community.community.Controller;
 
 import life.majiang.community.community.dto.PaginationDto;
+import life.majiang.community.community.model.Notification;
 import life.majiang.community.community.model.User;
+import life.majiang.community.community.service.NotificationService;
 import life.majiang.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class ProfileController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private NotificationService notificationService;
 
 
     @GetMapping("/profile/{action}")
@@ -33,15 +37,18 @@ public class ProfileController {
         if("questions".equals(action)){//点击我的问题选项
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的问题");
+            PaginationDto pagination=questionService.list(user.getId(),page,size);
+            model.addAttribute("pagination",pagination);
         }
         else if("replies".equals(action)){
+            PaginationDto paginationDto=notificationService.list(user.getId(),page,size);
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
+            model.addAttribute("pagination",paginationDto);
         }
 
 
-        PaginationDto paginationDto=questionService.list(user.getId(),page,size);
-        model.addAttribute("pagination",paginationDto);
+
         return "profile";
     }
 }

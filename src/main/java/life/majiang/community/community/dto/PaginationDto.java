@@ -3,9 +3,9 @@ package life.majiang.community.community.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaginationDto {
+public class PaginationDto<T> {
     //封装页面包裹的元素
-    private List<QuestionDto> questions;
+    private List<T> data;
     private boolean showPrevious;
     private boolean showFirstPage;
     private boolean showNext;
@@ -22,12 +22,12 @@ public class PaginationDto {
         this.totalPage = totalPage;
     }
 
-    public List<QuestionDto> getQuestions() {
-        return questions;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setQuestions(List<QuestionDto> questions) {
-        this.questions = questions;
+    public void setData(List<T> data) {
+        this.data = data;
     }
 
     public boolean isShowPrevious() {
