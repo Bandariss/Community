@@ -14,9 +14,13 @@
 
 #### OAuth 协议的认证和授权的过程如下：
 1.用户在点击导航栏的登陆按钮后，转跳到 GitHub 用户授权页面， client_id 必须传
+
 2.用户点击同意后，github会自动按照redirectUrl回到服务端("/callback")
-3.服务端将之前设置好的clientsecret等信息封装到accessTokenDto中，服务端通过accessTokenDto调用https://github.com/login/oauth/access_token  这个api获得accessToken
+
+3.服务端将之前设置好的clientsecret等信息封装到accessTokenDto中，服务端通过accessTokenDto使用getAccessToken方法调用https://github.com/login/oauth/access_token 这个api获得accessToken
+
 4.获取到 access_token 后，再通过getUser调用 https://api.github.com/user?access_token=access_token  这个API，就可以获取到基本的用户信息了。
+
 5.登陆成功后，向user数据库中加入这一user，并将token写入cookie，放在浏览器中
    
    ## 3.页面持久化
